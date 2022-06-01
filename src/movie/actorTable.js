@@ -11,4 +11,4 @@ const Actor =  sequelize.define("Actor", {
 });
 
 module.exports = Actor;
-//table conrtaints
+//table constraints
