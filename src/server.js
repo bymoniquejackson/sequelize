@@ -1,30 +1,70 @@
-const yargs = require("yargs")
+const yargs = require("yargs");
 const { sequelize } = require("./db/connection");
-//import crud functions
-const { addMovie, listMovies } = require("./Movie/movieMethods")
+//imports for CRUD functions
+const {
+	addMovie,
+	deleteMovie,
+	updateMovie,
+	listMovies,
+	findMovie,
+} = require("./movie/movieMethods");
+
+const app = async (yargsObj) => {
+	try {
+		await sequelize.sync();
+		if (yargsObj.add) {
+			
 
 
 
-const app = async (yarhsObj) => {
-    try {
-        await sequelize.sync();
-        if (yarhsObj.add) {
-            //add movie to db
-            await addMovie ({title: yarhsObj.title, actor: yarhsObj.actor});
-        }else if (yarhsObj.list) {
-            //list all movies 
-            console.log(await listMovies());
-        } else if (yarhsObj.update){
-            //update one movie
-        } else if (yarhsObj.delete){
-            //delete one movie 
-        }else {
-            console.log("Incorrect command")
-        }
+            
+			await addMovie({ title: yargsObj.title, actor: yargsObj.actor });
+		} else if (yargsObj.list) {
+			
 
-    }catch(error) {
-        console.log(error)
-    }
-}
+
+
+
+
+
+
+			console.log(await listMovies());
+		} else if (yargsObj.update) {
+	
+
+
+
+
+
+
+			await updateMovie({ title: yargsObj.title, actor: yargsObj.actor });
+		} else if (yargsObj.delete) {
+
+
+
+
+
+
+
+
+			await deleteMovie({ title: yargsObj.title });
+		} else if (yargsObj.find) {
+
+
+
+
+
+
+
+
+
+			await findMovie({ title: yargsObj.title });
+		} else {
+			console.log("Incorrect command");
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
 
 app(yargs.argv);
